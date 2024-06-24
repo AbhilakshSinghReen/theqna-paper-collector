@@ -1,6 +1,7 @@
 import { useRef, useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { ClipLoader } from "react-spinners";
 
 import MediaManagerDialog from "./MediaManagerDialog";
 import { GlobalStateContext } from "../context/GlobalStateContextProvider";
@@ -8,7 +9,7 @@ import { downloadObjectAsJSONFile } from "../utils/downloadUtils";
 import { defaultPaper, defaultPaperMedia } from "../config/defaults";
 
 export default function Actions() {
-  const { paper, setPaper, paperMedia, setPaperMedia } = useContext(GlobalStateContext);
+  const { isUpdatingPaper, paper, setPaper, paperMedia, setPaperMedia } = useContext(GlobalStateContext);
 
   const sourceFileInputRef = useRef();
   const importFileInputRef = useRef();
@@ -142,6 +143,16 @@ export default function Actions() {
           alignItems: "center",
         }}
       >
+        {isUpdatingPaper && (
+          <Box
+            sx={{
+              marginRight: 3,
+            }}
+          >
+            <ClipLoader size={25} color="orange" />
+          </Box>
+        )}
+
         <Box
           sx={{
             marginRight: 2,

@@ -7,6 +7,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import PaperMetadata from "./PaperMetadata";
 import QuestionInput from "./QuestionInput";
 import { GlobalStateContext } from "../context/GlobalStateContextProvider";
+import { createDebouncedFunction } from "../utils/jsUtils";
 
 export default function PaperInputter() {
   const { paper, setPaper } = useContext(GlobalStateContext);
@@ -37,6 +38,7 @@ export default function PaperInputter() {
 
     setPaper(updatedPaper);
   };
+  const debouncedHandleQuestionUpdate = createDebouncedFunction(handleQuestionUpdate, 2500);
 
   return (
     <Box
@@ -64,7 +66,7 @@ export default function PaperInputter() {
       {paper.questions.map((question, index) => (
         <QuestionInput
           question={question}
-          setQuestion={(updatedQuestion) => handleQuestionUpdate(index, updatedQuestion)}
+          setQuestion={(updatedQuestion) => debouncedHandleQuestionUpdate(index, updatedQuestion)}
           key={index}
         />
       ))}

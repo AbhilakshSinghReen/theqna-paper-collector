@@ -10,26 +10,94 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function QuestionInput({ question, setQuestion }) {
   const [expanded, setExpanded] = useState(true);
-  const [designator, setDesignator] = useState(question.designator);
-  const [weightage, setWeightage] = useState(question.weightage);
-  const [questionText, setQuestionText] = useState(question.content.questionText);
-  const [questionStandaloneText, setQuestionStandaloneText] = useState(question.content.questionStandaloneText);
-  const [answerText, setAnswerText] = useState(question.content.answerText);
 
-  const updateQuestion = () => {
-    setTimeout(() => {
-      const updatedQuestion = {
-        designator: designator,
-        weightage: weightage,
-        content: {
-          questionText: questionText,
-          questionStandaloneText: questionStandaloneText,
-          answerText: answerText,
-        },
-      };
+  const [localDesignator, setLocalDesignator] = useState(question.designator);
+  const [localWeightage, setLocalWeightage] = useState(question.weightage);
+  const [localQuestionText, setLocalQuestionText] = useState(question.content.questionText);
+  const [localQuestionStandaloneText, setLocalQuestionStandaloneText] = useState(question.content.standaloneText);
+  const [localAnswerText, setLocalAnswerText] = useState(question.content.answerText);
 
-      setQuestion(updatedQuestion);
-    }, 1500);
+  useEffect(() => {
+    setLocalDesignator(question.designator);
+    setLocalWeightage(question.weightage);
+    setLocalQuestionText(question.content.questionText);
+    setLocalQuestionStandaloneText(question.content.standaloneText);
+    setLocalAnswerText(question.content.answerText);
+  }, [question]);
+
+  const handleLocalDesignatorChange = (e) => {
+    const newValue = e.target.value;
+
+    setLocalDesignator(newValue);
+    setQuestion({
+      designator: newValue,
+      weightage: localWeightage,
+      content: {
+        questionText: localQuestionText,
+        questionStandaloneText: localQuestionStandaloneText,
+        answerText: localAnswerText,
+      },
+    });
+  };
+
+  const handleLocalWeightageChange = (e) => {
+    const newValue = e.target.value;
+
+    setLocalWeightage(newValue);
+    setQuestion({
+      designator: localDesignator,
+      weightage: newValue,
+      content: {
+        questionText: localQuestionText,
+        questionStandaloneText: localQuestionStandaloneText,
+        answerText: localAnswerText,
+      },
+    });
+  };
+
+  const handleLocalQuestionTextChange = (e) => {
+    const newValue = e.target.value;
+
+    setLocalQuestionText(newValue);
+    setQuestion({
+      designator: localDesignator,
+      weightage: localWeightage,
+      content: {
+        questionText: newValue,
+        questionStandaloneText: localQuestionStandaloneText,
+        answerText: localAnswerText,
+      },
+    });
+  };
+
+  const handleLocalQuestionStandaloneTextChange = (e) => {
+    const newValue = e.target.value;
+
+    setLocalQuestionStandaloneText(newValue);
+    setQuestion({
+      designator: localDesignator,
+      weightage: localWeightage,
+      content: {
+        questionText: localQuestionText,
+        questionStandaloneText: newValue,
+        answerText: localAnswerText,
+      },
+    });
+  };
+
+  const handleLocalAnswerTextChange = (e) => {
+    const newValue = e.target.value;
+
+    setLocalAnswerText(newValue);
+    setQuestion({
+      designator: localDesignator,
+      weightage: localWeightage,
+      content: {
+        questionText: localQuestionText,
+        questionStandaloneText: localQuestionStandaloneText,
+        answerText: newValue,
+      },
+    });
   };
 
   const handleQuestionDeleteButtonClick = () => {
@@ -40,14 +108,6 @@ export default function QuestionInput({ question, setQuestion }) {
     setQuestion(null);
   };
 
-  useEffect(() => {
-    setDesignator(question.designator);
-    setWeightage(question.weightage);
-    setQuestionText(question.content.questionText);
-    setQuestionStandaloneText(question.content.questionStandaloneText);
-    setAnswerText(question.content.answerText);
-  }, [question]);
-
   return (
     <Accordion
       width="100%"
@@ -56,7 +116,6 @@ export default function QuestionInput({ question, setQuestion }) {
       sx={{
         width: "100%",
         backgroundColor: "#e8e8e8",
-        // borderRadius: 2,
         marginBottom: 2,
       }}
     >
@@ -71,21 +130,19 @@ export default function QuestionInput({ question, setQuestion }) {
         }}
       >
         <TextField
-          value={designator}
-          onChange={(e) => setDesignator(e.target.value)}
+          value={localDesignator}
+          onChange={handleLocalDesignatorChange}
           placeholder="Designator"
           sx={{
             marginRight: 2,
           }}
           onClick={(e) => e.stopPropagation()}
-          onBlur={() => updateQuestion()}
         />
         <TextField
-          value={weightage}
-          onChange={(e) => setWeightage(e.target.value)}
+          value={localWeightage}
+          onChange={handleLocalWeightageChange}
           placeholder="Weightage"
           onClick={(e) => e.stopPropagation()}
-          onBlur={() => updateQuestion()}
         />
       </AccordionSummary>
       <AccordionDetails>
@@ -94,9 +151,8 @@ export default function QuestionInput({ question, setQuestion }) {
             width: "100%",
             marginBottom: 1,
           }}
-          value={questionText}
-          onChange={(e) => setQuestionText(e.target.value)}
-          onBlur={() => updateQuestion()}
+          value={localQuestionText}
+          onChange={handleLocalQuestionTextChange}
           placeholder="Question Text"
           multiline={true}
           rows={3}
@@ -107,9 +163,8 @@ export default function QuestionInput({ question, setQuestion }) {
             width: "100%",
             marginBottom: 1,
           }}
-          value={questionStandaloneText}
-          onChange={(e) => setQuestionStandaloneText(e.target.value)}
-          onBlur={() => updateQuestion()}
+          value={localQuestionStandaloneText}
+          onChange={handleLocalQuestionStandaloneTextChange}
           placeholder="Question Standalone Text"
           multiline={true}
           rows={1}
@@ -119,9 +174,8 @@ export default function QuestionInput({ question, setQuestion }) {
             width: "100%",
             marginBottom: 1,
           }}
-          value={answerText}
-          onChange={(e) => setAnswerText(e.target.value)}
-          onBlur={() => updateQuestion()}
+          value={localAnswerText}
+          onChange={handleLocalAnswerTextChange}
           placeholder="Answer Text"
           multiline={true}
           rows={10}
