@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/AbhilakshSinghReen.github.io/theqna-paper-collector/static/css/main.e6c13ad2.css",
+    "main.js": "/AbhilakshSinghReen.github.io/theqna-paper-collector/static/js/main.ec8f7ad3.js",
+    "static/js/453.d855a71b.chunk.js": "/AbhilakshSinghReen.github.io/theqna-paper-collector/static/js/453.d855a71b.chunk.js",
+    "index.html": "/AbhilakshSinghReen.github.io/theqna-paper-collector/index.html",
+    "main.e6c13ad2.css.map": "/AbhilakshSinghReen.github.io/theqna-paper-collector/static/css/main.e6c13ad2.css.map",
+    "main.ec8f7ad3.js.map": "/AbhilakshSinghReen.github.io/theqna-paper-collector/static/js/main.ec8f7ad3.js.map",
+    "453.d855a71b.chunk.js.map": "/AbhilakshSinghReen.github.io/theqna-paper-collector/static/js/453.d855a71b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.ec8f7ad3.js"
+  ]
+}
