@@ -2,6 +2,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
+import Actions from "./Actions";
 import { appName } from "../config/config";
 
 export default function Navbar() {
@@ -10,6 +11,7 @@ export default function Navbar() {
       position="fixed"
       sx={{
         height: "8vh",
+        backgroundColor: "#10898d",
       }}
     >
       <Toolbar
@@ -37,6 +39,8 @@ export default function Navbar() {
         >
           {appName}
         </Typography>
+
+        <Actions />
       </Toolbar>
     </AppBar>
   );

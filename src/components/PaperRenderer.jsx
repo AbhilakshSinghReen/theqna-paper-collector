@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import Box from "@mui/material/Box";
 
 import QuestionRenderer from "./QuestionRenderer";
+import { GlobalStateContext } from "../context/GlobalStateContextProvider";
 
-export default function PaperRenderer({ paper, paperMedia }) {
+export default function PaperRenderer() {
+  const { paper, paperMedia } = useContext(GlobalStateContext);
+
   return (
     <Box
       sx={{

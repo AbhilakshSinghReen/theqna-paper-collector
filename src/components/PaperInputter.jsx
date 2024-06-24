@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -5,8 +6,11 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 
 import PaperMetadata from "./PaperMetadata";
 import QuestionInput from "./QuestionInput";
+import { GlobalStateContext } from "../context/GlobalStateContextProvider";
 
-export default function PaperInputter({ paper, setPaper }) {
+export default function PaperInputter() {
+  const { paper, setPaper } = useContext(GlobalStateContext);
+
   const handleAddQuestionButtonClick = () => {
     const updatedPaper = { ...paper };
     updatedPaper.questions.push({

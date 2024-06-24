@@ -1,12 +1,15 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 import MediaManagerDialog from "./MediaManagerDialog";
+import { GlobalStateContext } from "../context/GlobalStateContextProvider";
 import { downloadObjectAsJSONFile } from "../utils/downloadUtils";
-// import { defaultPaper, defaultPaperMedia } from "../config/defaults";
+import { defaultPaper, defaultPaperMedia } from "../config/defaults";
 
-export default function Actions({ paper, setPaper, paperMedia, setPaperMedia }) {
+export default function Actions() {
+  const { paper, setPaper, paperMedia, setPaperMedia } = useContext(GlobalStateContext);
+
   const sourceFileInputRef = useRef();
   const importFileInputRef = useRef();
 
@@ -68,19 +71,19 @@ export default function Actions({ paper, setPaper, paperMedia, setPaperMedia }) 
     downloadObjectAsJSONFile(paperPlusMediaObject, filename);
   };
 
-  // const handleDeleteCacheButtonClick = (e) => {
-  //   if (
-  //     !window.confirm(
-  //       "Are you sure you want to delete all cached items? This will reset the paper data and media files added. This action cannot be reversed."
-  //     )
-  //   ) {
-  //     return;
-  //   }
+  const handleDeleteCacheButtonClick = (e) => {
+    if (
+      !window.confirm(
+        "Are you sure you want to delete all cached items? This will reset the paper data and media files added. This action cannot be reversed."
+      )
+    ) {
+      return;
+    }
 
-  //   localStorage.clear();
-  //   // setPaper(defaultPaper);
-  //   // setPaperMedia(defaultPaperMedia);
-  // };
+    localStorage.clear();
+    setPaper(defaultPaper);
+    setPaperMedia(defaultPaperMedia);
+  };
 
   const handleSourceFileUpload = (event) => {
     const uploadedFile = event.target.files[0];
@@ -112,15 +115,10 @@ export default function Actions({ paper, setPaper, paperMedia, setPaperMedia }) 
   return (
     <Box
       sx={{
-        height: "5vh",
-        width: "100%",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        paddingBottom: 1,
-        borderBottom: "1px solid grey",
-        marginBottom: "1vh",
       }}
     >
       <input
@@ -165,18 +163,24 @@ export default function Actions({ paper, setPaper, paperMedia, setPaperMedia }) 
               padding: 10,
               borderRadius: 5,
               cursor: "pointer",
+              color: "black",
             }}
           >
             {paperMedia?.source?.filename !== "" ? paperMedia.source.filename : "Add Source"}
           </label>
         </Box>
 
-        <Button variant="contained" color="primary" onClick={() => setMediaManagerDialogOpen(true)}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setMediaManagerDialogOpen(true)}
+          sx={{
+            marginRight: 2,
+          }}
+        >
           Media Manager
         </Button>
-      </Box>
 
-      <Box>
         <Button
           variant="contained"
           color="warning"
@@ -197,9 +201,10 @@ export default function Actions({ paper, setPaper, paperMedia, setPaperMedia }) 
         >
           Download
         </Button>
-        {/* <Button variant="contained" color="error" onClick={handleDeleteCacheButtonClick}>
+
+        <Button variant="contained" color="error" onClick={handleDeleteCacheButtonClick}>
           Delete Cache
-        </Button> */}
+        </Button>
       </Box>
     </Box>
   );

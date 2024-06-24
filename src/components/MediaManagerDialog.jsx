@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -9,9 +9,12 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 
+import { GlobalStateContext } from "../context/GlobalStateContextProvider";
 import MediaManagerMediaItem from "./MediaManagerMediaItem";
 
-export default function MediaManagerDialog({ open, setOpen, paperMedia, setPaperMedia }) {
+export default function MediaManagerDialog({ open, setOpen }) {
+  const { paperMedia, setPaperMedia } = useContext(GlobalStateContext);
+
   const addMediaInputRef = useRef();
 
   const [isUpdatingMedia, setIsUpdatingMedia] = useState(false);
@@ -98,7 +101,7 @@ export default function MediaManagerDialog({ open, setOpen, paperMedia, setPaper
             alignItems: "center",
           }}
         >
-          <Tooltip title="Add Question">
+          <Tooltip title="Add Image">
             <IconButton
               color="warning"
               onClick={handleAddMediaButtonClick}

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 
-import Actions from "../components/Actions";
 import PaperInputter from "../components/PaperInputter";
 import PaperRenderer from "../components/PaperRenderer";
 import { defaultPaper, defaultPaperMedia } from "../config/defaults";
@@ -34,7 +33,6 @@ export default function LoaderMain() {
         alignItems: "flex-start",
       }}
     >
-      <Actions paper={paper} setPaper={setPaper} paperMedia={paperMedia} setPaperMedia={setPaperMedia} />
       <Box
         sx={{
           maxWidth: "100%",
